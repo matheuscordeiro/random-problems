@@ -2,6 +2,17 @@
 
 # Seven-segment display problem
 
+# Input: 
+# 123
+
+# Output:
+
+ # ### ### 
+  #   #   # 
+  # ### ### 
+  # #     # 
+  # ### ### 
+
 import sys
 
 
