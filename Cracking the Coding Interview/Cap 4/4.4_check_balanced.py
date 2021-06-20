@@ -1,22 +1,23 @@
-from graph import Node
+class Node:
+    def __init__(self, value) -> None:
+        self.value = value
+        self.left = None
+        self.right = None
 
-
-def _bigger_height(root: Node):
-    if not root.adjacents:
+def height(root: Node):
+    if not root or (not root.left and not root.right):
         return 0
 
-    height_left = _bigger_height(root.adjacents[0]) + 1
-    height_right = 0
-    if len(root.adjacents) > 1:
-        height_right = _bigger_height(root.adjacents[1]) + 1
-
-    if height_left == -1 or height_right == -1 or abs(height_left - height_right) > 1:
+    left = height(root.left) if root.left else 0
+    right = height(root.right) if root.right else 0
+    if left == -1 or right == -1 or abs(left-right) > 1:
         return -1
 
-    return max(height_left, height_right)
+    return 1 + max(left, right)
+
 
 def check_balanced(root: Node):
-    if _bigger_height(root) == -1:
+    if height(root) == -1:
         return False
     else:
         return True
@@ -31,11 +32,10 @@ if __name__ == "__main__":
     node_f = Node(43)
 
     root = Node(30)
-    root.add_adjacent(node_a)  # left
-    root.add_adjacent(node_b)  # right
-    node_a.add_adjacent(node_c)  # left
-    node_a.add_adjacent(node_d)  # right
-    node_b.add_adjacent(node_e)  # left
-    node_e.add_adjacent(node_f)  # left
+    root.left = node_a  # left
+    root.right = node_b  # right
+    node_a.left = node_c  # left
+    node_a.right = node_d  # right
+    node_b.left = node_e  # left
 
     print(check_balanced(root))
